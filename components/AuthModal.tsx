@@ -296,15 +296,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   Sign In
                 </button>
 
-                <div className="text-center mt-4 p-2.5 bg-brand-cream/80 border border-brand-gold/20">
-                  <span className="text-[10px] font-bold uppercase text-brand-brown">Quick Demo Account:</span>
-                  <p className="text-[11px] text-brand-brown/80 mt-0.5">
-                    Email: <span className="font-mono font-bold text-brand-red">demo@akhalwayas.co.za</span>
-                  </p>
-                  <p className="text-[11px] text-brand-brown/80">
-                    Password: <span className="font-mono font-bold text-brand-red">password123</span>
-                  </p>
-                </div>
+               
               </form>
             ) : (
               <form onSubmit={handleSignUp} className="space-y-3.5">
