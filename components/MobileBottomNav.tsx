@@ -6,6 +6,7 @@ interface MobileBottomNavProps {
   cartCount: number;
   onNavigate: (page: string) => void;
   onOpenCart: () => void;
+  onCloseCart?: () => void;
   isCartOpen: boolean;
 }
 
@@ -14,6 +15,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   cartCount,
   onNavigate,
   onOpenCart,
+  onCloseCart,
   isCartOpen,
 }) => {
   // Determine which tab is visually active
@@ -22,7 +24,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   const isCartActive = isCartOpen;
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3.5 py-2.5 bg-brand-cream/90 backdrop-blur-md border border-brand-brown/10 rounded-full shadow-[0_12px_36px_rgba(69,20,0,0.2)] md:hidden">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex items-center gap-3 px-3.5 py-2.5 bg-brand-cream/90 backdrop-blur-md border border-brand-brown/10 rounded-full shadow-[0_12px_36px_rgba(69,20,0,0.2)] lg:hidden">
       {/* Home Tab */}
       {isHomeActive ? (
         <div className="bg-brand-red text-white flex items-center gap-2 px-5 py-2.5 rounded-full shadow-md animate-none">
@@ -57,7 +59,11 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 
       {/* Cart Tab */}
       {isCartActive ? (
-        <div className="bg-brand-red text-white flex items-center gap-2 px-5 py-2.5 rounded-full shadow-md animate-none relative">
+        <button
+          onClick={onCloseCart}
+          className="bg-brand-red text-white flex items-center gap-2 px-5 py-2.5 rounded-full shadow-md animate-none relative cursor-pointer focus:outline-none"
+          aria-label="Close Cart"
+        >
           <ShoppingBag className="w-5 h-5" />
           <span className="font-display font-extrabold text-xs uppercase tracking-wider">Cart</span>
           {cartCount > 0 && (
@@ -65,7 +71,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               {cartCount}
             </span>
           )}
-        </div>
+        </button>
       ) : (
         <button
           onClick={onOpenCart}

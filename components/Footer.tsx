@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-brand-cream border-t border-gray-200 pt-16 pb-24 md:pb-8">
+    <footer className="bg-brand-cream border-t border-gray-200 pt-16 pb-24 lg:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">

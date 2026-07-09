@@ -63,6 +63,7 @@ const App: React.FC = () => {
   const handleNavigate = (page: string, category?: string) => {
     setCurrentPage(page);
     setMenuTargetCategory(category);
+    setIsCartOpen(false);
     window.scrollTo(0, 0);
   };
 
@@ -293,6 +294,7 @@ const App: React.FC = () => {
         cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         onNavigate={handleNavigate}
         onOpenCart={() => setIsCartOpen(true)}
+        onCloseCart={() => setIsCartOpen(false)}
         isCartOpen={isCartOpen}
       />
     </div>

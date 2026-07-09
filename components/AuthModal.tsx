@@ -199,9 +199,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Brand Header (Left column on Desktop, top banner on Mobile) */}
         <div className="bg-brand-brown p-6 sm:p-10 text-center text-white relative flex flex-col justify-center items-center sm:w-5/12 sm:min-h-[500px]">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-brand-red mx-auto flex items-center justify-center text-white font-bold text-2xl sm:text-3xl border-4 border-brand-gold shadow-lg mb-2 sm:mb-4">
-            A
-          </div>
+          <img 
+            src="https://i.postimg.cc/R0fJGBfk/akhalwaya-logo-crest.png" 
+            alt="Akhalwaya's Logo" 
+            className="w-20 h-20 sm:w-24 sm:h-24 object-contain mx-auto mb-3 sm:mb-5"
+            referrerPolicy="no-referrer"
+          />
           <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wider">AKHALWAYA'S</h2>
           <p className="text-brand-gold text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-1">Authentic Fast Food</p>
         </div>
