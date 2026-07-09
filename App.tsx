@@ -289,14 +289,16 @@ const App: React.FC = () => {
         onAuthSuccess={handleAuthSuccess}
       />
 
-      <MobileBottomNav 
-        currentPage={currentPage}
-        cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
-        onNavigate={handleNavigate}
-        onOpenCart={() => setIsCartOpen(true)}
-        onCloseCart={() => setIsCartOpen(false)}
-        isCartOpen={isCartOpen}
-      />
+      {!isAuthModalOpen && (
+        <MobileBottomNav 
+          currentPage={currentPage}
+          cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+          onNavigate={handleNavigate}
+          onOpenCart={() => setIsCartOpen(true)}
+          onCloseCart={() => setIsCartOpen(false)}
+          isCartOpen={isCartOpen}
+        />
+      )}
     </div>
   );
 };

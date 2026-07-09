@@ -238,18 +238,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className="p-6 sm:p-8 overflow-y-auto sm:max-h-[520px]">
+          <div className="p-6 pb-20 sm:p-8 overflow-y-auto sm:max-h-[520px]">
             {/* Status Messages */}
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border-l-4 border-brand-red text-brand-red text-sm flex gap-3 items-start">
-                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <span>{error}</span>
+              <div className="mb-4 p-3 bg-red-50 border-l-4 border-brand-red text-brand-red text-xs sm:text-sm flex gap-2.5 items-center rounded-r shadow-sm">
+                <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="font-semibold">{error}</span>
               </div>
             )}
             {success && (
-              <div className="mb-6 p-4 bg-green-50 border-l-4 border-emerald-500 text-emerald-800 text-sm flex gap-3 items-start">
-                <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <span>{success}</span>
+              <div className="mb-4 p-3 bg-green-50 border-l-4 border-emerald-500 text-emerald-800 text-xs sm:text-sm flex gap-2.5 items-center rounded-r shadow-sm">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="font-semibold">{success}</span>
               </div>
             )}
 

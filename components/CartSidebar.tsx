@@ -126,7 +126,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
 
           {/* Footer / Checkout */}
           {cartItems.length > 0 && (
-            <div className="border-t border-gray-100 p-6 bg-gray-50 space-y-3 flex-shrink-0">
+            <div className="border-t border-gray-100 p-6 pb-24 lg:pb-6 bg-gray-50 space-y-3 flex-shrink-0">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Subtotal</span>
                 <span className="font-bold text-gray-900">R {subtotal.toFixed(2)}</span>
