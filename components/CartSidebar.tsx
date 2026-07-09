@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Trash2, ShoppingBag } from 'lucide-react';
-import { CartItem } from '../types';
+import { CartItem, User } from '../types';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -8,6 +8,9 @@ interface CartSidebarProps {
   cartItems: CartItem[];
   onRemoveItem: (id: string) => void;
   onUpdateQuantity: (id: string, delta: number) => void;
+  currentUser: User | null;
+  onOpenAuth: (mode: 'signin' | 'signup') => void;
+  onCheckoutSuccess: (pointsEarned: number, orderItems: any[]) => void;
 }
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ 
@@ -15,9 +18,19 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
   onClose, 
   cartItems, 
   onRemoveItem,
-  onUpdateQuantity
+  onUpdateQuantity,
+  currentUser,
+  onOpenAuth,
+  onCheckoutSuccess
 }) => {
-  
+  const [showGuestPrompt, setShowGuestPrompt] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShowGuestPrompt(false);
+    }
+  }, [isOpen]);
+
   // Updated to handle 'R' currency and spaces
   const parsePrice = (priceStr: string) => parseFloat(priceStr.replace(/[^0-9.]/g, ''));
 
@@ -127,12 +140,54 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                 <span>R {total.toFixed(2)}</span>
               </div>
               
-              <button 
-                onClick={() => alert("Checkout processed!")}
-                className="w-full bg-brand-red text-white font-display font-bold text-xl py-4 uppercase tracking-wider hover:bg-red-700 transition-colors shadow-lg mt-2"
-              >
-                Checkout
-              </button>
+              {showGuestPrompt ? (
+                <div className="bg-brand-cream border border-brand-gold/30 p-4 space-y-3 mt-2">
+                  <p className="text-xs text-brand-brown font-bold text-center">
+                    Earn <span className="text-brand-red font-black text-sm">{Math.round(subtotal)} Points</span> on this order!
+                  </p>
+                  <p className="text-[11px] text-gray-500 text-center leading-normal">
+                    Sign in or create an account to start racking up points for free Gatsbys and Curries!
+                  </p>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => { onOpenAuth('signup'); onClose(); }}
+                      className="flex-1 bg-brand-red text-white py-2 font-display font-bold text-xs uppercase hover:bg-red-700 transition-colors text-center"
+                    >
+                      Sign Up & Earn
+                    </button>
+                    <button 
+                      onClick={() => {
+                        onCheckoutSuccess(0, []);
+                        alert("🎉 Order processed successfully as Guest! Join our Rewards club next time to earn points!");
+                        onClose();
+                      }}
+                      className="flex-1 bg-gray-200 text-gray-700 py-2 font-display font-bold text-xs uppercase hover:bg-gray-300 transition-colors text-center"
+                    >
+                      Guest Checkout
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => {
+                    if (currentUser) {
+                      const orderItems = cartItems.map(item => ({
+                        title: item.title,
+                        quantity: item.quantity,
+                        price: item.price
+                      }));
+                      onCheckoutSuccess(subtotal, orderItems);
+                      alert(`🎉 Order processed successfully! R ${subtotal.toFixed(2)} was charged. You earned ${Math.round(subtotal)} points!`);
+                      onClose();
+                    } else {
+                      setShowGuestPrompt(true);
+                    }
+                  }}
+                  className="w-full bg-brand-red text-white font-display font-bold text-xl py-4 uppercase tracking-wider hover:bg-red-700 transition-colors shadow-lg mt-2"
+                >
+                  Checkout
+                </button>
+              )}
             </div>
           )}
         </div>

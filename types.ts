@@ -52,3 +52,24 @@ export interface StoreLocation {
   phone: string;
   status: 'Open' | 'Closed';
 }
+
+export interface UserOrder {
+  id: string;
+  date: string;
+  items: {
+    title: string;
+    quantity: number;
+    price: string;
+  }[];
+  total: string;
+  pointsEarned: number;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  points: number;
+  orderHistory: UserOrder[];
+}

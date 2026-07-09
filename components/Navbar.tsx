@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, ShoppingBag, User, MapPin } from 'lucide-react';
+import { Menu, X, ShoppingBag, User as UserIcon, MapPin } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
+import { User } from '../types';
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
@@ -8,6 +9,10 @@ interface NavbarProps {
   onOpenCart: () => void;
   onOpenLocation: () => void;
   cartCount: number;
+  currentUser: User | null;
+  onOpenAuth: (mode: 'signin' | 'signup') => void;
+  onSignOut: () => void;
+  selectedLocationName?: string | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ 
@@ -15,7 +20,11 @@ const Navbar: React.FC<NavbarProps> = ({
   currentPage, 
   onOpenCart, 
   onOpenLocation,
-  cartCount 
+  cartCount,
+  currentUser,
+  onOpenAuth,
+  onSignOut,
+  selectedLocationName
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,9 +43,12 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* Logo Section */}
           <div className="flex items-center">
             <button onClick={() => handleNavClick('home')} className="flex-shrink-0 flex items-center gap-2 group focus:outline-none">
-              <div className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center text-white font-bold text-2xl border-4 border-brand-brown group-hover:scale-105 transition-transform duration-200">
-                A
-              </div>
+              <img 
+                src="https://i.postimg.cc/R0fJGBfk/akhalwaya-logo-crest.png" 
+                alt="Akhalwaya's Logo" 
+                className="w-14 h-14 object-contain group-hover:scale-105 transition-transform duration-200"
+                referrerPolicy="no-referrer"
+              />
               <span className="hidden md:block font-display text-2xl font-bold text-brand-brown tracking-wide">
                 AKHALWAYA'S
               </span>
@@ -64,13 +76,51 @@ const Navbar: React.FC<NavbarProps> = ({
                onClick={onOpenLocation}
                className="hidden lg:flex items-center text-xs font-bold text-gray-700 hover:text-brand-red uppercase focus:outline-none"
              >
-              <MapPin className="w-5 h-5 mr-1" />
-              Find A Location
+              <MapPin className={`w-5 h-5 mr-1.5 ${selectedLocationName ? 'text-brand-red fill-brand-red/10 animate-pulse' : ''}`} />
+              {selectedLocationName ? (
+                <span className="flex flex-col items-start leading-none text-left">
+                  <span className="text-[9px] text-gray-400 font-bold tracking-wider lowercase">ordering from</span>
+                  <span className="text-brand-brown font-extrabold tracking-wide uppercase text-xs">{selectedLocationName}</span>
+                </span>
+              ) : (
+                "Find A Location"
+              )}
             </button>
-            <a href="#signin" className="hidden sm:flex items-center text-xs font-bold text-gray-700 hover:text-brand-red uppercase">
-              <User className="w-5 h-5 mr-1" />
-              Sign In
-            </a>
+            
+            {currentUser ? (
+              <div className="relative group hidden sm:block">
+                <button className="flex items-center text-xs font-bold text-gray-700 hover:text-brand-red uppercase focus:outline-none py-2">
+                  <UserIcon className="w-5 h-5 mr-1 text-brand-red" />
+                  Hi, {currentUser.name.split(' ')[0]}
+                </button>
+                <div className="absolute right-0 top-full mt-1 w-48 bg-white shadow-xl border border-gray-100 py-2 hidden group-hover:block z-50 rounded-none">
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Your Balance</p>
+                    <p className="text-sm font-bold text-brand-brown">{currentUser.points} Points</p>
+                  </div>
+                  <button 
+                    onClick={() => onNavigate('rewards')}
+                    className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 font-medium"
+                  >
+                    My Rewards
+                  </button>
+                  <button 
+                    onClick={onSignOut}
+                    className="w-full text-left px-4 py-2.5 text-sm text-brand-red hover:bg-gray-50 font-bold border-t border-gray-50"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button 
+                onClick={() => onOpenAuth('signin')}
+                className="hidden sm:flex items-center text-xs font-bold text-gray-700 hover:text-brand-red uppercase focus:outline-none"
+              >
+                <UserIcon className="w-5 h-5 mr-1" />
+                Sign In
+              </button>
+            )}
             
             {/* Cart Button */}
             <button 
@@ -114,11 +164,43 @@ const Navbar: React.FC<NavbarProps> = ({
                  onClick={() => { onOpenLocation(); setIsOpen(false); }}
                  className="block w-full text-left px-3 py-3 text-lg font-medium text-gray-600 hover:text-brand-red"
                >
-                 Find a Location
+                 {selectedLocationName ? (
+                   <span className="flex items-center gap-2">
+                     <MapPin className="w-5 h-5 text-brand-red fill-brand-red/10" />
+                     <span>Ordering from: <strong className="text-brand-brown uppercase">{selectedLocationName}</strong></span>
+                   </span>
+                 ) : (
+                   "Find a Location"
+                 )}
                </button>
-               <a href="#signin" className="block px-3 py-3 text-lg font-medium text-gray-600 hover:text-brand-red">
-                 Sign In / Join
-               </a>
+               
+               {currentUser ? (
+                 <div className="px-3 py-3 border-t border-gray-100 mt-2">
+                   <p className="text-sm text-gray-500">Logged in as <strong className="text-brand-brown">{currentUser.name}</strong></p>
+                   <p className="text-sm text-brand-red font-bold mt-1 mb-3">{currentUser.points} Points Available</p>
+                   <div className="flex gap-4">
+                     <button 
+                       onClick={() => { onNavigate('rewards'); setIsOpen(false); }}
+                       className="flex-1 text-center bg-gray-100 py-2.5 font-bold text-xs uppercase text-brand-brown"
+                     >
+                       My Rewards
+                     </button>
+                     <button 
+                       onClick={() => { onSignOut(); setIsOpen(false); }}
+                       className="flex-1 text-center bg-brand-red text-white py-2.5 font-bold text-xs uppercase"
+                     >
+                       Sign Out
+                     </button>
+                   </div>
+                 </div>
+               ) : (
+                 <button 
+                   onClick={() => { onOpenAuth('signin'); setIsOpen(false); }}
+                   className="block w-full text-left px-3 py-3 text-lg font-medium text-gray-600 hover:text-brand-red focus:outline-none"
+                 >
+                   Sign In / Join
+                 </button>
+               )}
             </div>
           </div>
         </div>

@@ -3,10 +3,19 @@ import { FEATURED_ITEMS } from '../constants';
 import { ArrowRight } from 'lucide-react';
 
 interface MenuGridProps {
-  onNavigate: (page: string) => void;
+  onNavigate: (page: string, category?: string) => void;
 }
 
 const MenuGrid: React.FC<MenuGridProps> = ({ onNavigate }) => {
+  const getCategoryFromItemId = (id: string) => {
+    if (id.includes('gatsby')) return 'gatsby';
+    if (id.includes('curry')) return 'curry';
+    if (id.includes('wrap')) return 'sides';
+    if (id.includes('burger')) return 'burger';
+    if (id.includes('side')) return 'sides';
+    return 'fav';
+  };
+
   return (
     <section className="bg-white py-16" id="menu">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,7 +61,10 @@ const MenuGrid: React.FC<MenuGridProps> = ({ onNavigate }) => {
                 {item.price}
               </span>
 
-              <button className="text-brand-brown font-bold uppercase tracking-wide border-b-2 border-transparent group-hover:border-brand-brown transition-all flex items-center gap-1">
+              <button 
+                onClick={() => onNavigate('menu', getCategoryFromItemId(item.id))}
+                className="text-brand-brown font-bold uppercase tracking-wide border-b-2 border-transparent group-hover:border-brand-brown transition-all flex items-center gap-1 cursor-pointer"
+              >
                 Order Now <ArrowRight className="w-4 h-4" />
               </button>
             </div>

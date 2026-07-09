@@ -35,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </p>
             
             <button 
-              onClick={() => onNavigate('menu', 'burger')}
+              onClick={() => onNavigate('menu', 'gatsby')}
               className="inline-block bg-brand-red text-white font-display font-bold text-xl px-10 py-4 uppercase tracking-wider hover:bg-red-700 transition-colors duration-300 shadow-lg cursor-pointer"
             >
               {HERO_DATA.cta}

@@ -102,6 +102,7 @@ export const CATEGORIES: Category[] = [
   { id: 'curry', label: 'Curries & Rice', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=100&auto=format&fit=crop' },
   { id: 'burger', label: 'Burgers', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=100&auto=format&fit=crop' },
   { id: 'sides', label: 'Sides & Snacks', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=100&auto=format&fit=crop' },
+  { id: 'catering', label: 'Catering Platters', image: 'https://i.postimg.cc/288HtH0B/Catered-Breakfasts-Pastries-Coffee-Tea-Stations.jpg' },
   { id: 'drinks', label: 'Drinks', image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=100&auto=format&fit=crop' },
 ];
 
@@ -175,7 +176,7 @@ export const MENU_ITEMS: DetailedMenuItem[] = [
     longDescription: 'Double the flavor. Two smashed beef patties with melted cheddar slices, tangy pickles, chopped onions, ketchup, and mustard.',
     price: 'R 95.00',
     calories: '820 kCal',
-    image: 'https://images.unsplash.com/photo-1534790566855-4cf7884971e7?q=80&w=800&auto=format&fit=crop',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHmXi18ws8vNJxwV-PyIDrqsZ3shJczekQHjMWnWVRIw&s=10',
     ingredients: [INGREDIENTS.bun, INGREDIENTS.patty, INGREDIENTS.cheese, INGREDIENTS.onion]
   },
   {
@@ -188,5 +189,51 @@ export const MENU_ITEMS: DetailedMenuItem[] = [
     calories: '450 kCal',
     image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop',
     ingredients: [INGREDIENTS.samosa, INGREDIENTS.onion, INGREDIENTS.sauce]
+  },
+  {
+    id: 'wrap-1',
+    categoryId: 'sides',
+    title: 'Spicy Tikka Wrap',
+    description: 'Grilled chicken tikka wrapped in a fresh roti with crunchy slaw.',
+    longDescription: 'Flavor-packed spicy grilled chicken tikka strips wrapped in a freshly prepared soft roti with crunchy garden cabbage slaw, tangy red onions, and our secret herb-spiced sauce.',
+    price: 'R 95.00',
+    calories: '650 kCal',
+    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=800&auto=format&fit=crop',
+    ingredients: [INGREDIENTS.steak, INGREDIENTS.lettuce, INGREDIENTS.onion, INGREDIENTS.sauce]
+  },
+  {
+    id: 'catering-1',
+    categoryId: 'catering',
+    title: 'Grand Gatsby Platter',
+    description: 'Serves 6-8. A massive combination of our signature beef and chicken Gatsbys cut into perfect sharing portions.',
+    longDescription: 'Bring the signature Akhalwaya\'s experience to your party. A massive assortment of our famous Masala Steak and Full House Chicken Gatsbys, sliced into perfect sharing pieces and served on a platter with extra hand-cut slap chips and dipping sauces.',
+    price: 'R 480.00',
+    calories: '3800 kCal',
+    image: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?q=80&w=800&auto=format&fit=crop',
+    tag: 'POPULAR',
+    ingredients: [INGREDIENTS.roll, INGREDIENTS.steak, INGREDIENTS.chips, INGREDIENTS.sauce]
+  },
+  {
+    id: 'catering-2',
+    categoryId: 'catering',
+    title: 'Samosa Catering Tray',
+    description: '36 Pcs. Crisp golden samosas with beef, chicken, and potato cheese fillings.',
+    longDescription: 'Perfect for any social or corporate event. Thirty-six handmade, freshly fried crispy golden samosas. A balanced mix of spiced beef mince, fragrant chicken, and creamy potato cheese fillings served with a sweet chilli dipping glaze.',
+    price: 'R 320.00',
+    calories: '2400 kCal',
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop',
+    ingredients: [INGREDIENTS.samosa, INGREDIENTS.onion, INGREDIENTS.sauce]
+  },
+  {
+    id: 'catering-3',
+    categoryId: 'catering',
+    title: 'Durban Curry Buffet Tray',
+    description: 'Serves 10. Slow-cooked Durban mutton curry with basmati rice and sambals.',
+    longDescription: 'Our legendary Durban-style mutton curry prepared in a buffet-sized serving tray. Slowly simmered on the bone with tender potatoes and freshly ground spices, served over a bed of fluffy basmati rice with a side tray of carrot-and-onion sambals.',
+    price: 'R 950.00',
+    calories: '5200 kCal',
+    image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800&auto=format&fit=crop',
+    tag: 'PREMIUM',
+    ingredients: [INGREDIENTS.rice, INGREDIENTS.mutton, INGREDIENTS.onion, INGREDIENTS.sauce]
   }
 ];

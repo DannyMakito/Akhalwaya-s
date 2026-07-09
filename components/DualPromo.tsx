@@ -1,7 +1,11 @@
 import React from 'react';
 import { PROMO_CARDS } from '../constants';
 
-const DualPromo: React.FC = () => {
+interface DualPromoProps {
+  onNavigate: (page: string, category?: string) => void;
+}
+
+const DualPromo: React.FC<DualPromoProps> = ({ onNavigate }) => {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid md:grid-cols-2 gap-8">
@@ -33,12 +37,21 @@ const DualPromo: React.FC = () => {
                 {card.description}
               </p>
               
-              <button className={`
-                font-display font-bold text-lg px-8 py-3 uppercase tracking-wider transition-colors
-                ${card.theme === 'dark' 
-                  ? 'bg-white text-brand-brown hover:bg-brand-gray' 
-                  : 'bg-brand-brown text-white hover:bg-brand-brown/90'}
-              `}>
+              <button 
+                onClick={() => {
+                  if (index === 0) {
+                    onNavigate('menu', 'catering');
+                  } else {
+                    onNavigate('about');
+                  }
+                }}
+                className={`
+                  font-display font-bold text-lg px-8 py-3 uppercase tracking-wider transition-colors cursor-pointer
+                  ${card.theme === 'dark' 
+                    ? 'bg-white text-brand-brown hover:bg-brand-gray' 
+                    : 'bg-brand-brown text-white hover:bg-brand-brown/90'}
+                `}
+              >
                 {card.ctaText}
               </button>
             </div>

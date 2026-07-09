@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { X, Search, MapPin, Navigation } from 'lucide-react';
 import { STORE_LOCATIONS } from '../constants';
+import { StoreLocation } from '../types';
 
 interface LocationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSelectLocation: (location: StoreLocation) => void;
+  selectedLocationId: string | null;
 }
 
-const LocationModal: React.FC<LocationModalProps> = ({ isOpen, onClose }) => {
+const LocationModal: React.FC<LocationModalProps> = ({ 
+  isOpen, 
+  onClose,
+  onSelectLocation,
+  selectedLocationId
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   if (!isOpen) return null;
@@ -68,12 +76,26 @@ const LocationModal: React.FC<LocationModalProps> = ({ isOpen, onClose }) => {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="flex-1 bg-brand-brown text-white py-2 text-xs font-bold uppercase tracking-wide hover:bg-brand-brown/90 transition-colors">
-                      Order Here
+                    <button 
+                      onClick={() => onSelectLocation(location)}
+                      className={`flex-1 py-2 text-xs font-bold uppercase tracking-wide transition-colors cursor-pointer
+                        ${selectedLocationId === location.id
+                          ? 'bg-brand-red text-white hover:bg-brand-red/90'
+                          : 'bg-brand-brown text-white hover:bg-brand-brown/90'
+                        }
+                      `}
+                    >
+                      {selectedLocationId === location.id ? 'Currently Ordering' : 'Order Here'}
                     </button>
-                    <button className="flex items-center justify-center px-3 border border-gray-300 hover:bg-gray-100 transition-colors">
+                    <a 
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.name + ' ' + location.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center px-3 border border-gray-300 hover:bg-gray-100 transition-colors cursor-pointer"
+                      title="Get Directions"
+                    >
                       <Navigation className="w-4 h-4 text-gray-600" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               ))
